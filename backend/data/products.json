@@ -1,0 +1,234 @@
+[
+  {
+    "pid": "FDG",
+    "name": "國泰美國優質債券基金",
+    "short_name": "美國優質債券",
+    "type": "bond_fund",
+    "region": "美國",
+    "asset_class": "債券",
+    "risk_level": 2,
+    "suitable_personas": ["new_parents", "hnw_professionals"],
+    "market_signals": ["降息", "利率下行", "避險", "債券", "固定收益", "美債", "投資等級債", "通膨降溫", "聯準會"],
+    "cta_label": {
+      "new_parents": "給家人的未來多一份保障",
+      "hnw_professionals": "佈局投資等級債・鎖定資本利得",
+      "fresh_grads": "穩健起步・每月小額自動扣款"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "hnw_professionals": "single",
+      "fresh_grads": "regular"
+    },
+    "product_url": "https://www.cathaysite.com.tw/fund-details/FDG",
+    "afun_url": "https://www.cathaysite.com.tw/fund-details/FDG",
+    "description": "主要投資信用評等 BBB- 以上之美國優質債券，提供長期穩健的配息收益與資本保值能力。適合追求穩定現金流的中長期投資人。",
+    "highlight": "投資等級債 · 月配息 · 低波動"
+  },
+  {
+    "pid": "00645",
+    "name": "國泰美國道瓊正2 ETF",
+    "short_name": "道瓊正2",
+    "type": "etf_leverage",
+    "region": "美國",
+    "asset_class": "股票ETF（槓桿型）",
+    "risk_level": 5,
+    "suitable_personas": ["hnw_professionals"],
+    "market_signals": ["降息", "利率下行", "多頭", "牛市", "成長股", "大盤動能", "科技股", "Fed轉鴿", "強勢美股"],
+    "cta_label": {
+      "hnw_professionals": "趨勢已現・果斷出擊"
+    },
+    "cta_mode": {
+      "hnw_professionals": "single"
+    },
+    "product_url": "https://www.cathayholdings.com/securities/stock/ETF/00645",
+    "afun_url": "https://www.cathayholdings.com/securities/stock/ETF/00645",
+    "description": "追蹤道瓊工業平均指數正向 2 倍表現，適合看多美股且具備槓桿操作經驗的積極型投資人。高風險高報酬，不適合長期持有。",
+    "highlight": "道瓊指數 · 2倍槓桿 · 積極型"
+  },
+  {
+    "pid": "00878",
+    "name": "國泰永續高股息 ETF",
+    "short_name": "永續高股息",
+    "type": "etf_dividend",
+    "region": "台灣",
+    "asset_class": "股票ETF（高股息）",
+    "risk_level": 3,
+    "suitable_personas": ["new_parents", "fresh_grads", "hnw_professionals"],
+    "market_signals": ["高股息", "配息", "永續", "ESG", "台股", "存股", "穩定收益", "長期投資", "股息"],
+    "cta_label": {
+      "new_parents": "每季領息・為孩子穩健累積",
+      "hnw_professionals": "ESG優質標的・季配息現金流",
+      "fresh_grads": "存股首選・季配息複利滾存"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "hnw_professionals": "single",
+      "fresh_grads": "regular"
+    },
+    "product_url": "https://www.cathayholdings.com/securities/stock/ETF/00878",
+    "afun_url": "https://www.cathayholdings.com/securities/stock/ETF/00878",
+    "description": "追蹤 MSCI 台灣 ESG 永續高股息精選 30 指數，挑選高股息且符合 ESG 評級之台灣上市公司，每季配息，深受存股族喜愛。",
+    "highlight": "台灣ETF · 季配息 · ESG永續"
+  },
+  {
+    "pid": "00846",
+    "name": "國泰韓國三星 ETF",
+    "short_name": "韓國三星",
+    "type": "etf_equity",
+    "region": "南韓",
+    "asset_class": "股票ETF（單一國家）",
+    "risk_level": 4,
+    "suitable_personas": ["hnw_professionals", "fresh_grads"],
+    "market_signals": ["科技股", "半導體", "韓股", "新興市場", "AI浪潮", "電子業", "科技趨勢", "三星", "記憶體"],
+    "cta_label": {
+      "hnw_professionals": "掌握AI半導體供應鏈機會",
+      "fresh_grads": "搭上AI趨勢・科技股直接佈局"
+    },
+    "cta_mode": {
+      "hnw_professionals": "single",
+      "fresh_grads": "regular"
+    },
+    "product_url": "https://www.cathayholdings.com/securities/stock/ETF/00846",
+    "afun_url": "https://www.cathayholdings.com/securities/stock/ETF/00846",
+    "description": "追蹤 FnGuide 三星集團指數，集中佈局韓國三星集團旗下企業，受益於全球 AI 與半導體需求爆發，是科技趨勢投資的精準切入點。",
+    "highlight": "韓國科技 · 三星集團 · AI半導體"
+  },
+  {
+    "pid": "FNI",
+    "name": "國泰台灣高股息基金",
+    "short_name": "台灣高股息",
+    "type": "equity_fund",
+    "region": "台灣",
+    "asset_class": "股票型基金",
+    "risk_level": 4,
+    "suitable_personas": ["new_parents", "hnw_professionals", "fresh_grads"],
+    "market_signals": ["台股", "高股息", "台灣企業", "配息", "殖利率", "景氣", "內需消費", "電子股"],
+    "cta_label": {
+      "new_parents": "台灣本土・高息穩健增值",
+      "hnw_professionals": "聚焦台股高殖利率標的",
+      "fresh_grads": "買台灣大企業・每年有息拿"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "hnw_professionals": "single",
+      "fresh_grads": "regular"
+    },
+    "product_url": "https://www.cathaysite.com.tw/fund-details/FNI",
+    "afun_url": "https://www.cathaysite.com.tw/fund-details/FNI",
+    "description": "主動式管理的台灣股票型基金，聚焦高股息殖利率個股，兼顧資本增值與現金股利收益，適合看好台灣市場長期發展的投資人。",
+    "highlight": "台股主動選股 · 高殖利率 · 現金增值"
+  },
+  {
+    "pid": "FBK",
+    "name": "國泰全球不動產基金",
+    "short_name": "全球不動產",
+    "type": "reit_fund",
+    "region": "全球",
+    "asset_class": "REITs",
+    "risk_level": 3,
+    "suitable_personas": ["new_parents", "hnw_professionals"],
+    "market_signals": ["降息", "REITs", "不動產", "利率下行", "實體資產", "通膨對沖", "配息", "房地產"],
+    "cta_label": {
+      "new_parents": "不買房也能投資全球不動產",
+      "hnw_professionals": "降息循環最佳受益資產・REITs配置"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "hnw_professionals": "single"
+    },
+    "product_url": "https://www.cathaysite.com.tw/fund-details/FBK",
+    "afun_url": "https://www.cathaysite.com.tw/fund-details/FBK",
+    "description": "投資全球上市不動產投資信託（REITs），涵蓋美國、歐洲、亞太地區，提供類租金收益與通膨對沖功能，降息環境下尤具吸引力。",
+    "highlight": "全球REITs · 月配息 · 通膨對沖"
+  },
+  {
+    "pid": "00858",
+    "name": "國泰00858 永豐台灣加權 ETF",
+    "short_name": "台灣加權ETF",
+    "type": "etf_equity",
+    "region": "台灣",
+    "asset_class": "股票ETF（大盤指數）",
+    "risk_level": 3,
+    "suitable_personas": ["fresh_grads", "new_parents"],
+    "market_signals": ["台股", "加權指數", "大盤", "指數化投資", "定期定額", "被動投資", "分散風險"],
+    "cta_label": {
+      "new_parents": "跟著台灣大盤走・穩健長期增值",
+      "fresh_grads": "買整個台灣市場・最簡單的投資方式"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "fresh_grads": "regular"
+    },
+    "product_url": "https://www.cathayholdings.com/securities/stock/ETF/00858",
+    "afun_url": "https://www.cathayholdings.com/securities/stock/ETF/00858",
+    "description": "追蹤台灣加權股價指數，一次持有台灣所有上市公司，是最簡單的台股指數化投資工具。適合定期定額長期累積資產的入門投資人。",
+    "highlight": "台股大盤 · 指數化 · 入門首選"
+  },
+  {
+    "pid": "FHB",
+    "name": "國泰中國A股基金",
+    "short_name": "中國A股",
+    "type": "equity_fund",
+    "region": "中國",
+    "asset_class": "股票型基金",
+    "risk_level": 5,
+    "suitable_personas": ["hnw_professionals"],
+    "market_signals": ["中國", "A股", "新興市場", "政策刺激", "人民幣", "中國復甦", "製造業", "中概股"],
+    "cta_label": {
+      "hnw_professionals": "政策催化・精準佈局A股復甦"
+    },
+    "cta_mode": {
+      "hnw_professionals": "single"
+    },
+    "product_url": "https://www.cathaysite.com.tw/fund-details/FHB",
+    "afun_url": "https://www.cathaysite.com.tw/fund-details/FHB",
+    "description": "聚焦中國大陸 A 股市場，受益於政策刺激與內需復甦題材。高波動、高成長潛力，適合具備新興市場投資經驗的積極型投資人。",
+    "highlight": "中國A股 · 政策紅利 · 高成長潛力"
+  },
+  {
+    "pid": "00882",
+    "name": "國泰台灣 ESG 永續 ETF",
+    "short_name": "台灣ESG永續",
+    "type": "etf_esg",
+    "region": "台灣",
+    "asset_class": "股票ETF（ESG）",
+    "risk_level": 3,
+    "suitable_personas": ["fresh_grads", "new_parents"],
+    "market_signals": ["ESG", "永續", "碳排放", "綠能", "氣候", "責任投資", "永續主題", "台灣企業治理"],
+    "cta_label": {
+      "new_parents": "為下一代留下更好的世界・ESG投資",
+      "fresh_grads": "投資有意義的企業・ESG你的第一步"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "fresh_grads": "regular"
+    },
+    "product_url": "https://www.cathayholdings.com/securities/stock/ETF/00882",
+    "afun_url": "https://www.cathayholdings.com/securities/stock/ETF/00882",
+    "description": "追蹤 MSCI 台灣 ESG 永續指數，篩選台灣上市公司中 ESG 評分優異的企業，兼顧投資報酬與社會責任，是永續理念投資人的首選。",
+    "highlight": "台灣ESG · 永續理念 · 責任投資"
+  },
+  {
+    "pid": "FAG",
+    "name": "國泰全球債券基金",
+    "short_name": "全球債券",
+    "type": "bond_fund",
+    "region": "全球",
+    "asset_class": "債券",
+    "risk_level": 2,
+    "suitable_personas": ["new_parents", "hnw_professionals"],
+    "market_signals": ["全球債券", "分散風險", "固定收益", "降息", "多元配置", "避險", "跨國債券", "已開發市場"],
+    "cta_label": {
+      "new_parents": "全球分散・穩定守護家庭資產",
+      "hnw_professionals": "多元貨幣債券配置・降低組合波動"
+    },
+    "cta_mode": {
+      "new_parents": "regular",
+      "hnw_professionals": "single"
+    },
+    "product_url": "https://www.cathaysite.com.tw/fund-details/FAG",
+    "afun_url": "https://www.cathaysite.com.tw/fund-details/FAG",
+    "description": "投資全球已開發國家的政府債與投資等級公司債，透過多元貨幣分散風險，提供穩定的固定收益，適合保守至穩健型的長期投資人。",
+    "highlight": "全球債券 · 多幣別分散 · 低波動"
+  }
+]

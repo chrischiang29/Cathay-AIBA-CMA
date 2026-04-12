@@ -1,0 +1,58 @@
+# ============================================================
+# 機密憑證與環境變數（絕對不得提交）
+# ============================================================
+**/.env
+**/.env.local
+**/.env.production
+
+# credentials 目錄下的 JSON，但排除 *-example.json 範本檔
+**/credentials/*.json
+!**/credentials/*-example.json
+!**/credentials/*example*.json
+
+# 明確指定憑證檔名，雙重防護（example 檔除外）
+**/gen-lang-client-api-key.json
+!**/gen-lang-client-api-key-example.json
+**/service_account*.json
+**/serviceaccount*.json
+**/*-key.json
+!**/*-key-example.json
+**/*_key.json
+!**/*_key_example.json
+
+# ============================================================
+# Python 後端
+# ============================================================
+backend/.venv/
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/*.egg-info/
+backend/dist/
+backend/build/
+
+# ============================================================
+# Node.js 前端
+# ============================================================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ============================================================
+# 系統與編輯器
+# ============================================================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+
+# ============================================================
+# PDF 檔案（研報、投影片等，不入版控）
+# ============================================================
+uploads/
+*.pdf
+*.upload.pdf

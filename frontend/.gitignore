@@ -1,0 +1,9 @@
+# Node.js
+node_modules/
+dist/
+.vite/
+
+# 環境變數
+.env
+.env.local
+.env.production

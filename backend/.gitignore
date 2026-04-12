@@ -1,0 +1,31 @@
+# ============================================================
+# 機密憑證與環境變數（絕對不得提交）
+# ============================================================
+.env
+.env.local
+.env.production
+credentials/*.json
+!credentials/*-example.json
+!credentials/*example*.json
+gen-lang-client-api-key.json
+!gen-lang-client-api-key-example.json
+service_account*.json
+*-key.json
+!*-key-example.json
+*_key.json
+!*_key_example.json
+
+# ============================================================
+# Python 虛擬環境與快取
+# ============================================================
+.venv/
+venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.pytest_cache/
