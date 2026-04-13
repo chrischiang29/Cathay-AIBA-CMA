@@ -1,6 +1,13 @@
 """
 產品比對服務
 根據市場訊號 × Persona，從 products.json 中選出最適合的產品（最多 3 筆）
+
+計分邏輯：
+  正分 = market_signals 與提取訊號的交集數量
+  負分 = negative_signals 與提取訊號的交集數量
+  淨分 = 正分 - 負分
+  淨分 < 0 的產品直接排除（市場環境與產品邏輯矛盾）
+  淨分 = 0 保留（無特定訊號命中，作為 fallback）
 """
 
 import json
@@ -24,9 +31,9 @@ def match_products(
     根據市場訊號與 Persona 選出最適合的產品。
 
     匹配邏輯（優先順序）：
-    1. suitable_personas 包含此 persona
-    2. market_signals 與提取出的訊號有最多交集（交集數越多排越前）
-    3. 最多回傳 max_results 筆
+    1. suitable_personas 包含此 persona（必要條件）
+    2. 淨分 = 正訊號交集 - 負訊號交集，淨分 < 0 直接排除
+    3. 依淨分降序排列，取前 max_results 筆
     """
     products = _load_products()
     signals_set = set(signals)
@@ -37,13 +44,21 @@ def match_products(
         if persona_tag not in product.get("suitable_personas", []):
             continue
 
-        # 計算訊號交集分數
-        product_signals = set(product.get("market_signals", []))
-        score = len(signals_set & product_signals)
+        # 正向分數：與 market_signals 的交集
+        positive_signals = set(product.get("market_signals", []))
+        positive_score = len(signals_set & positive_signals)
 
-        # 即使分數為 0 也保留（確保至少有 fallback 推薦）
-        scored.append((score, product))
+        # 負向分數：與 negative_signals 的交集
+        negative_signals = set(product.get("negative_signals", []))
+        negative_score = len(signals_set & negative_signals)
 
-    # 依分數降序排列，取前 N 筆
+        # 淨分：負分表示市場環境與產品邏輯矛盾，直接排除
+        net_score = positive_score - negative_score
+        if net_score < 0:
+            continue
+
+        scored.append((net_score, product))
+
+    # 依淨分降序排列，取前 N 筆
     scored.sort(key=lambda x: x[0], reverse=True)
     return [item[1] for item in scored[:max_results]]

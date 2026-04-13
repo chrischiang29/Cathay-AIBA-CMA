@@ -1,6 +1,6 @@
-# CUBE GenAI 投研顧問系統
+# 市場報告個人化摘要與產品接口
 
-> **國泰世華 CUBE App「AI 智能財富領航員」MVP Demo**
+> **MVP Demo**
 > 以 GenAI 動態提示詞編排，實現「資訊 → 洞察 → 行動」的超個人化投研導購體系
 
 ---
@@ -38,48 +38,11 @@
 
 ### 整體架構圖
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        前端 (React + TypeScript)                 │
-│                                                                   │
-│   ┌──────────────────┐      ┌──────────────────────────────────┐ │
-│   │  System Prompt   │      │         主操作區                  │ │
-│   │   查看面板        │      │  PDF上傳 → 產出按鈕               │ │
-│   │                  │      │                                   │ │
-│   │  [新手爸媽]       │      │  三欄並排報告對比                 │ │
-│   │  [高淨值專業人士] │      │  ┌─────┐ ┌─────┐ ┌─────┐       │ │
-│   │  [社會新鮮人]    │      │  │摘要  │ │摘要  │ │摘要  │       │ │
-│   │                  │      │  │訊號  │ │訊號  │ │訊號  │       │ │
-│   │  (.md 原始內容)  │      │  │產品卡│ │產品卡│ │產品卡│       │ │
-│   │                  │      │  │CTA按鈕│ │CTA按鈕│ │CTA按鈕│    │ │
-│   └──────────────────┘      └──────────────────────────────────┘ │
-└───────────────────────────────┬─────────────────────────────────┘
-                                │ POST /api/generate
-                                ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                       後端 (FastAPI + Python)                     │
-│                                                                   │
-│  PDF 解析 (pdfplumber)                                            │
-│       │                                                           │
-│       ▼                                                           │
-│  ┌─────────────────── Orchestrator（三路並發）─────────────────┐  │
-│  │                                                              │  │
-│  │  new_parents          hnw_professionals      fresh_grads    │  │
-│  │       │                      │                    │         │  │
-│  │  [Step 1] Gemini 摘要生成（各自載入對應 .md system prompt）  │  │
-│  │       │                      │                    │         │  │
-│  │  [Step 2] 市場訊號提取（reasoning_service → Gemini JSON）    │  │
-│  │       │                      │                    │         │  │
-│  │  [Step 3] 產品比對（product_matcher，訊號×Persona 交集分數） │  │
-│  │       │                      │                    │         │  │
-│  │  [Step 4] KYC 合規阻斷（suitability_check，風險等級比對）    │  │
-│  │       │                      │                    │         │  │
-│  │  [Step 5] CTA 組合（cta_builder，個人化文案 + 直購連結）     │  │
-│  └──────────────────────────────────────────────────────────────┘  │
-│                                                                   │
-│  Vertex AI Gemini（Service Account REST API）                     │
-└─────────────────────────────────────────────────────────────────┘
-```
+![整體架構圖](PNG/Structure.png)
+
+### 前端頁面
+
+![前端頁面](PNG/Frontend.png)
 
 ---
 
@@ -248,30 +211,57 @@ Gemini 讀取 Step 1 產出的個人化摘要，透過 `reasoning_extractor.md` 
 
 ### Step 3：產品比對演算法
 
+每個產品有兩組訊號欄位：
+
+- `market_signals`：此環境下**適合推薦**的市場訊號（正向）
+- `negative_signals`：此環境下**不應推薦**的市場訊號（反向排除）
+
 ```python
 # backend/services/product_matcher.py
 def match_products(signals, persona_tag, max_results=3):
     for product in products:
-        # 條件一（必要）：products.json 中 suitable_personas 包含此 persona
+        # 條件一（必要）：suitable_personas 包含此 persona
         if persona_tag not in product["suitable_personas"]:
             continue
-        
-        # 條件二（排序依據）：market_signals 與提取訊號的交集數量
-        score = len(set(signals) & set(product["market_signals"]))
-        
-    # 依交集分數降序，取前 3 筆（score=0 也保留，確保至少有 fallback）
-    return top_3_by_score
+
+        # 正向分數：market_signals 與提取訊號的交集
+        positive_score = len(set(signals) & set(product["market_signals"]))
+
+        # 負向分數：negative_signals 與提取訊號的交集
+        negative_score = len(set(signals) & set(product["negative_signals"]))
+
+        # 淨分 < 0 直接排除（市場環境與產品邏輯矛盾）
+        net_score = positive_score - negative_score
+        if net_score < 0:
+            continue
+
+    # 依淨分降序，取前 3 筆（net_score=0 保留作為 fallback）
+    return top_3_by_net_score
 ```
 
-**比對示意：**
+**升息環境示意（negative_signals 排除效果）：**
+```
+提取訊號：["升息", "通膨升溫", "Fed鷹派", "台股"]
+
+FDG  正分 0  負分 3（升息、通膨升溫、Fed鷹派） → 淨分 -3 → 排除
+FAG  正分 0  負分 3（升息、通膨升溫、Fed鷹派） → 淨分 -3 → 排除
+FBK  正分 0  負分 1（升息）                     → 淨分 -1 → 排除
+00878 正分 1（台股）  負分 0                     → 淨分  1 → 保留
+FNI   正分 1（台股）  負分 0                     → 淨分  1 → 保留
+
+結果：升息環境債券、REITs 自動排除，改推台股相關產品
+```
+
+**降息環境示意（正向命中）：**
 ```
 提取訊號：["降息", "債券利好", "避險", "台股"]
 
-FDG 市場訊號：["降息", "利率下行", "避險", "債券", "美債"] → 交集 2（降息、避險）
-FAG 市場訊號：["全球債券", "降息", "固定收益", "避險"]     → 交集 2（降息、避險）
-00878 市場訊號：["高股息", "台股", "配息", "永續", "ESG"]  → 交集 1（台股）
+FDG  正分 2（降息、避險）  負分 0 → 淨分  2 → 保留（優先）
+FAG  正分 2（降息、避險）  負分 0 → 淨分  2 → 保留（優先）
+FBK  正分 1（降息）        負分 0 → 淨分  1 → 保留
+00878 正分 1（台股）        負分 0 → 淨分  1 → 保留
 
-排序結果：FDG = FAG > 00878，各取其中前 3 筆
+排序結果：FDG = FAG > FBK = 00878
 ```
 
 ### Step 4：KYC 合規阻斷
@@ -320,6 +310,7 @@ FAG 市場訊號：["全球債券", "降息", "固定收益", "避險"]     → 
 
   "suitable_personas": ["new_parents", "hnw_professionals"],
   "market_signals": ["降息", "利率下行", "避險", "債券", "固定收益", "美債", "投資等級債"],
+  "negative_signals": ["升息", "利率上行", "通膨升溫", "升息循環", "Fed鷹派"],
 
   "cta_label": {
     "new_parents":       "給家人的未來多一份保障",
@@ -332,8 +323,8 @@ FAG 市場訊號：["全球債券", "降息", "固定收益", "避險"]     → 
     "fresh_grads":       "regular"
   },
 
-  "product_url": "https://www.cathaysite.com.tw/fund-details/FDG",
-  "afun_url": "https://www.cathaysite.com.tw/fund-details/FDG"
+  "product_url": "https://www.cathaybk.com.tw/cathaybk/personal/investment/fund/search",
+  "afun_url": "https://www.cathaybk.com.tw/cathaybk/personal/investment/fund/search"
 }
 ```
 
